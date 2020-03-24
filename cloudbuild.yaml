@@ -1,5 +1,8 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
   args: [ 'build', '-t', 'gcr.io/timeoff-272103/timeoff:latest', '.' ]
+- name: "gcr.io/cloud-builders/gcloud"
+  args: ["app", "deploy"]
+timeout: "600s"
 images:
 - 'gcr.io/timeoff-272103/timeoff:latest'
