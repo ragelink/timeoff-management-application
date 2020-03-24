@@ -1,4 +1,4 @@
 dispatch:
   # Default service serves simple hostname request.
-  - url: "gae-timeoff.ragelink.com/*"
+  - url: "gae.ragelink.com/*"
     service: default

@@ -1,8 +1,19 @@
 steps:
+# Build the container image
 - name: 'gcr.io/cloud-builders/docker'
-  args: [ 'build', '-t', 'gcr.io/timeoff-272103/timeoff:latest', '.' ]
-- name: "gcr.io/cloud-builders/gcloud"
-  args: ["app", "deploy"]
+  args: ['build', '-t', 'gcr.io/timeoff-272103/timeoff:latest', '.' ]
+# Push the container image to Container Registry
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/timeoff-272103/timeoff:latest']
+# Deploy container image to Cloud Run
+- name: 'gcr.io/cloud-builders/gcloud'
+  args: ['app', 'deploy', '--image-url', 'gcr.io/timeoff-272103/timeoff:latest']
+# Deploy updates to URL dispatches as needed
+- name: 'gcr.io/cloud-builders/gcloud'
+  args: ['app', 'deploy', 'dispatch.yaml']
 timeout: "600s"
 images:
 - 'gcr.io/timeoff-272103/timeoff:latest'
+
+
+
