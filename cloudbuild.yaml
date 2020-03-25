@@ -1,12 +1,17 @@
 steps:
 # Get the secret password for the database
-- name: 'gcr.io/cloud-builders/gcloud'
-  args: ['secrets', 'versions', 'access', 'latest', '--secret=DATABASE_PASSWORD']
+#- name: 'gcr.io/cloud-builders/gcloud'
+#  args: ['secrets', 'versions', 'access', 'latest', '--secret=DATABASE_PASSWORD']
 
 # Get the secret password for the database
 - name: 'gcr.io/cloud-builders/gcloud'
   entrypoint: '/bin/bash'
   args: ['-c', 'gcloud secrets versions access latest --secret=DATABASE_PASSWORD >> env_variables.yaml']
+
+# Get the secret password for the database
+- name: 'gcr.io/cloud-builders/gcloud'
+  entrypoint: '/bin/bash'
+  args: ['-c', 'gcloud secrets versions access latest --secret=DATABASE_PASSWORD >> env_variables.sh']
 
 # Build the container image
 - name: 'gcr.io/cloud-builders/docker'
@@ -17,10 +22,23 @@ steps:
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'gcr.io/timeoff-272103/timeoff:latest']
 
+# Install npm dependencies
+- id: 'node-install'
+  name: 'gcr.io/cloud-builders/npm'
+  args: ['install', 'sequelize', 'sequelize-cli', 'mysql']
+
+# Install CLoud SQL proxy
+- id: 'proxy-install'
+  name: alpine:3
+  entrypoint: sh
+  args: ['-c', 'wget -O cloud_sql_proxy https://storage.googleapis.com/cloudsql-proxy/v1.16/cloud_sql_proxy.linux.386 && chmod +xxx cloud_sql_proxy']
+  waitFor: ['-']
+
 # Run migrations on the database
-- name: 'gcr.io/timeoff-272103/timeoff:latest'
-  entrypoint: 'npm'
-  args: ['run-script', 'db-update']
+#- name: 'gcr.io/cloud-builders/npm'
+#  entrypoint: bash
+#  args: ['-c', 'chmod +xxx ./migration-wrapper.sh && bash ./migration-wrapper.sh']
+#  waitFor: ['proxy-install', 'node-install']
 
 # Get the secret password for the database
 - name: 'gcr.io/cloud-builders/gcloud'
