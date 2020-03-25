@@ -40,6 +40,7 @@ RUN sed -i 's/3000/8080/' bin/wwww
 RUN sed -i 's/3000/8080/' bin/wwww_cluster
 RUN sed -i 's/3000/8080/' t/lib/config.js
 
+RUN npm install sequelize sequelize-cli mysql
 RUN npm install
 
 CMD npm start

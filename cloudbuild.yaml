@@ -1,19 +1,41 @@
 steps:
+# Get the secret password for the database
+- name: 'gcr.io/cloud-builders/gcloud'
+  args: ['secrets', 'versions', 'access', 'latest', '--secret=DATABASE_PASSWORD']
+
+# Get the secret password for the database
+- name: 'gcr.io/cloud-builders/gcloud'
+  entrypoint: '/bin/bash'
+  args: ['-c', 'gcloud secrets versions access latest --secret=DATABASE_PASSWORD >> env_variables.yaml']
+
 # Build the container image
 - name: 'gcr.io/cloud-builders/docker'
   args: ['build', '-t', 'gcr.io/timeoff-272103/timeoff:latest', '.' ]
+  dir: './'
+
 # Push the container image to Container Registry
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'gcr.io/timeoff-272103/timeoff:latest']
+
+# Run migrations on the database
+- name: 'gcr.io/timeoff-272103/timeoff:latest'
+  entrypoint: 'npm'
+  args: ['run-script', 'db-update']
+
+# Get the secret password for the database
+- name: 'gcr.io/cloud-builders/gcloud'
+  entrypoint: '/bin/bash'
+  args: ['-c', 'cat env_variables.yaml']
+
 # Deploy container image to Cloud Run
 - name: 'gcr.io/cloud-builders/gcloud'
   args: ['app', 'deploy', '--image-url', 'gcr.io/timeoff-272103/timeoff:latest']
+
 # Deploy updates to URL dispatches as needed
 - name: 'gcr.io/cloud-builders/gcloud'
   args: ['app', 'deploy', 'dispatch.yaml']
+
 timeout: "600s"
 images:
 - 'gcr.io/timeoff-272103/timeoff:latest'
-
-
 
