@@ -38,3 +38,10 @@ automatic_scaling:
   cpu_utilization:
     target_utilization: 0.6
   target_concurrent_requests: 100
+
+beta_settings:
+  cloud_sql_instances: 'timeoff-272103:us-central1:timeoff=tcp:3306'
+
+includes:
+- env_variables.yaml
+
