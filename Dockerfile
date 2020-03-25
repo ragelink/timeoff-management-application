@@ -44,6 +44,7 @@ RUN npm install sequelize sequelize-cli mysql mysql2
 RUN npm install
 RUN npm install --production
 COPY config/db.json config/db.json
-RUN cat package.json | jq '.dependencies.sequelize |= "^5.21.2"' | jq '.dependencies["sequelize-cli"] |= "5.5.1"' > package.json
+RUN sed -i 's/"sequelize": "^3.19.2",/"sequelize": "^5.21.2",/' package.json
+RUN sed -i 's/"sequelize-cli": "2.5.1",/"sequelize-cli": "^5.5.1",/' package.json
 
 CMD npm start
