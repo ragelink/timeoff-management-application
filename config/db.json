@@ -12,6 +12,7 @@
     "dialect": "mysql"
   },
   "production": {
+    "url": "mysql://timeoff:CHANGEME@127.12.0.1/timeoff",
     "username": "timeoff",
     "password": "CHANGEME",
     "database": "timeoff",
