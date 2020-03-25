@@ -40,8 +40,9 @@ RUN sed -i 's/3000/8080/' bin/wwww
 RUN sed -i 's/3000/8080/' bin/wwww_cluster
 RUN sed -i 's/3000/8080/' t/lib/config.js
 
-RUN npm install sequelize sequelize-cli mysql
+RUN npm install sequelize sequelize-cli mysql mysql2
 RUN npm install
 COPY config/db.json config/db.json
+RUN cat package.json | jq '.dependencies.sequelize |= "^5.21.2"' | jq '.dependencies["sequelize-cli"] |= "5.5.1"' > package.json
 
 CMD npm start
