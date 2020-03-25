@@ -42,5 +42,6 @@ RUN sed -i 's/3000/8080/' t/lib/config.js
 
 RUN npm install sequelize sequelize-cli mysql
 RUN npm install
+COPY config/db.json config/db.json
 
 CMD npm start

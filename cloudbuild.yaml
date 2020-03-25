@@ -28,11 +28,11 @@ steps:
   args: ['install', 'sequelize', 'sequelize-cli', 'mysql']
 
 # Install CLoud SQL proxy
-- id: 'proxy-install'
-  name: alpine:3
-  entrypoint: sh
-  args: ['-c', 'wget -O cloud_sql_proxy https://storage.googleapis.com/cloudsql-proxy/v1.16/cloud_sql_proxy.linux.386 && chmod +xxx cloud_sql_proxy']
-  waitFor: ['-']
+#- id: 'proxy-install'
+#  name: alpine:3
+#  entrypoint: sh
+#  args: ['-c', 'wget -O cloud_sql_proxy https://storage.googleapis.com/cloudsql-proxy/v1.16/cloud_sql_proxy.linux.386 && chmod +xxx cloud_sql_proxy']
+#  waitFor: ['-']
 
 # Run migrations on the database
 #- name: 'gcr.io/cloud-builders/npm'
