@@ -5,10 +5,10 @@
     "logging": false
   },
   "test": {
-    "username": "root",
-    "password": null,
-    "database": "database_test",
-    "host": "127.0.0.1",
+    "username": "timeoff",
+    "password": "CHANGEME",
+    "database": "timeoff",
+    "host": "172.17.0.1",
     "dialect": "mysql"
   },
   "production": {

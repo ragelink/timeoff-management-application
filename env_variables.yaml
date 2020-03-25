@@ -1,7 +1,6 @@
 env_variables:
   NODE_ENV: production
   DATABASE: timeoff
-  DATABASE_SERVER: 172.17.0.1
-  DATABASE_USER: timeoff
-  DATABASE_PORT: 3306
-  DATABASE_PASSWORD: 
+  HOST: 172.17.0.1
+  USERNAME: timeoff
+  PASSWORD: 
