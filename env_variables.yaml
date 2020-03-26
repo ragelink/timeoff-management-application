@@ -1,5 +1,5 @@
 env_variables:
-  NODE_ENV: production
+  NODE_ENV: development
   DATABASE: timeoff
   HOST: 172.17.0.1
   USERNAME: timeoff
