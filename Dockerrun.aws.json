@@ -1,0 +1,19 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "containerDefinitions": [
+    {
+      "memoryReservation": 1024,
+      "name": "timeoff",
+      "image": "<ACCOUNTID>.dkr.ecr.<REGION>.amazonaws.com/REPO/timeoff:latest",
+      "environment": [
+        {"name": "NODE_ENV","value": "${NODE_ENV}"},
+        {"name": "DATABASE","value": "${DATABASE}"},
+        {"name": "USER","value": "${USER}"},
+        {"name": "HOST","value": "${HOST}"},
+        {"name": "PASSWORD","value": "${PASSWORD}"}
+      ],
+      "essential": true,
+      "portMappings": [{"hostPort": 8080,"containerPort": 8080}]
+    }
+  ]
+}
